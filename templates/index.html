@@ -1,0 +1,698 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- <div class="col-md-6 offset-md-3"> -->
+    
+	{% if user.is_authenticated %}
+
+
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+	<title>Sidebar 02</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="{% static 'https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900' %}" rel="stylesheet">
+	<link href="{% static 'fontawesome-free/css/all.min.css'%}" rel="stylesheet" type="text/css">
+	<link href="{% static 'vendor/fontawesome-free/css/all.min.css'%}" rel="stylesheet" type="text/css">
+	<link href="{% static 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i'%}"
+		rel="stylesheet">
+	<link rel="{% static 'stylesheet' %}" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="{% static 'stylesheet' %}" href="css/style.css">
+	<link rel="{% static 'stylesheet' %}" href="/scss/style.scss">
+	<link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js' %}"></script>
+
+
+<body>
+
+
+	<div class="wrapper d-flex align-items-stretch">
+		<nav id="sidebar">
+			<div class="custom-menu">
+				<button type="button" id="sidebarCollapse" class="btn btn-primary">
+					<i class="fa fa-bars"></i>
+					<span class="sr-only">Toggle Menu</span>
+				</button>
+			</div>
+			<div class="p-4">
+				<img class="w-50 d-flex align-items-center justify-content-center" src="{% static '/assets/logo.png' %}"/>
+				<ul class="list-unstyled components mb-5 mt-4">
+					<li>
+						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
+							class="dropdown-toggle">Home</a>
+						<ul class="collapse list-unstyled " id="homeSubmenu">
+
+							<li class="active" >
+								<a href="#" class="d-flex align-items-center" >
+									<img class="mx-2" src="{% static '/assets/1.svg' %}"/>
+									Analytical
+								</a>
+							</li>
+							<li>
+								<a href="#" class="d-flex align-items-center"><img class="mx-2"
+										src="{% static '/assets/Images/Vector.png' %}" /> Statistics</a>
+							</li>
+							<li>
+								<a href="#" class="d-flex align-items-center"><img class="mx-2"
+										src="{% static '/assets/Images/cubes 1.png' %}" /> Product Performances</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#pageSubmenu10" data-toggle="collapse" aria-expanded="false"
+							class="dropdown-toggle">SALES</a>
+						<ul class="collapse list-unstyled" id="pageSubmenu10">
+							<li>
+								<a href="{% url 'sales_details' %}">Shop Sales</a>
+							</li>
+							<li>
+								<a href="#">Wholesales</a>
+							</li>
+							<li>
+								<a href="{% url 'add_sales' %}">Add Sales</a>
+							</li>
+
+						</ul>
+					</li>
+					<li>
+						<a href="#pageSubmenu9" data-toggle="collapse" aria-expanded="false"
+							class="dropdown-toggle">Customers</a>
+						<ul class="collapse list-unstyled" id="pageSubmenu9">
+							<li>
+								<a href="#">Customers Profile</a>
+							</li>
+							<li>
+								<a href="#">Customers Credit</a>
+							</li>
+							<li>
+								<a href="#">Advance / Deposit</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#pageSubmenu8" data-toggle="collapse" aria-expanded="false"
+							class="dropdown-toggle">Expenses</a>
+						<ul class="collapse list-unstyled" id="pageSubmenu8">
+							<li>
+								<a href="#">Record Expenses</a>
+							</li>
+							<li>
+								<a href="#">Expense Statement</a>
+							</li>
+							<li>
+								<a href="#">Expenses</a>
+							</li>
+							<li>
+								<a href="#">Add Expense Category</a>
+							</li>
+
+						</ul>
+					</li>
+					<li>
+						<a href="#pageSubmenu7" data-toggle="collapse" aria-expanded="false"
+							class="dropdown-toggle">Products</a>
+						<ul class="collapse list-unstyled" id="pageSubmenu7">
+							<li>
+								<a href="#">Manage Products</a>
+							</li>
+							<li>
+								<a href="#">Price Change</a>
+							</li>
+							<li>
+								<a href="#">Add Products</a>
+							</li>
+							<li>
+								<a href="#">Manage Units</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#pageSubmenu6" data-toggle="collapse" aria-expanded="false"
+							class="dropdown-toggle">REPORTS</a>
+						<ul class="collapse list-unstyled" id="pageSubmenu6">
+							<li>
+								<a href="#">Sales Report</a>
+							</li>
+							<li>
+								<a href="#">Product Wise Report</a>
+							</li>
+							<li>
+								<a href="#">Profit / Loss Report</a>
+							</li>
+						</ul>
+					</li>
+
+					<li>
+						<a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false"
+							class="dropdown-toggle">Purchases</a>
+						<ul class="collapse list-unstyled" id="pageSubmenu5">
+							<li>
+								<a href="#">Add Purchase</a>
+							</li>
+							<li>
+								<a href="#">Manage Purchases</a>
+							</li>
+							<li>
+								<a href="#">Supplier</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false"
+							class="dropdown-toggle">Accounts</a>
+						<ul class="collapse list-unstyled" id="pageSubmenu4">
+							<li>
+								<a href="#">Cash Book</a>
+							</li>
+							<li>
+								<a href="#">PBank Transaction</a>
+							</li>
+							<li>
+								<a href="#">Manage Bank</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false"
+							class="dropdown-toggle">Accounts</a>
+						<ul class="collapse list-unstyled" id="pageSubmenu3">
+							<li>
+								<a href="#">Add Users</a>
+							</li>
+							<li>
+								<a href="#">User Access</a>
+							</li>
+							<li>
+								<a href="#">User Account Settings</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false"
+							class="dropdown-toggle">Wastage</a>
+						<ul class="collapse list-unstyled" id="pageSubmenu1">
+							<li>
+								<a href="#">Record Dead Stock</a>
+							</li>
+
+						</ul>
+					</li>
+					<li>
+						<a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false"
+							class="dropdown-toggle">Quotations</a>
+						<ul class="collapse list-unstyled" id="pageSubmenu2">
+							<li>
+								<a href="#">Add Quotations</a>
+							</li>
+
+						</ul>
+					</li>
+
+				</ul>
+
+			</div>
+		</nav>
+		<!-- Page Content  -->
+		<div id="content" class="p-4 p-md-5 pt-5  " style="overflow-x:visible;">
+
+
+			<div class="row ">
+
+				<div class="col-lg-3">
+					<h3>Analytical</h3>
+					<p>Dashboard</p>
+				</div>
+				<div class="col-lg-5">
+					<div class="col-rt-3 equal-height">
+						<div class="sb-example-3">
+						  <!-- partial:index.partial.html -->
+						  <div class="search__container">
+				
+							  <input class="search__input" type="text" placeholder="Search">
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 " style="display: flex; justify-content: end ; margin: auto;">
+					<nav class="navbar navbar-expand navbar-light  topbar mb-4 static-top ">
+
+
+						<!-- Topbar Navbar -->
+						<ul class="navbar-nav ml-auto d-flex">
+
+							<li class="nav-item dropdown no-arrow mx-2 mt-2 ">
+
+
+								<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Sales
+									<span
+										class="position-absolute  start-100 translate-middle badge rounded-pill bg-info text-light">
+										+
+									</span>
+								</a>
+								</p>
+							</li>
+
+							<div class="topbar-divider d-none d-sm-block"></div>
+
+							<!-- Nav Item - Alerts -->
+							<li class="nav-item dropdown no-arrow mx-1">
+								<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<img class="w-75 mt-1" src="{% static '/assets/notify.svg'%}" />
+									<span
+										class="position-absolute  start-100 translate-middle badge rounded-pill bg-warning text-light"
+										style="margin-left: -5px ;">
+										9
+									</span>
+								</a>
+								<!-- Dropdown - Alerts -->
+								<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+									aria-labelledby="alertsDropdown">
+									<h6 class="dropdown-header">
+										Alerts Center
+									</h6>
+									<a class="dropdown-item d-flex align-items-center" href="#">
+										<div class="mr-3">
+											<div class="icon-circle bg-primary">
+												<i class="fas fa-file-alt text-white"></i>
+											</div>
+										</div>
+										<div>
+											<div class="small text-gray-500">December 12, 2019</div>
+											<span class="font-weight-bold">A new monthly report is ready to
+												download!</span>
+										</div>
+									</a>
+									<a class="dropdown-item d-flex align-items-center" href="#">
+										<div class="mr-3">
+											<div class="icon-circle bg-success">
+												<i class="fas fa-donate text-white"></i>
+											</div>
+										</div>
+										<div>
+											<div class="small text-gray-500">December 7, 2019</div>
+											$290.29 has been deposited into your account!
+										</div>
+									</a>
+									<a class="dropdown-item d-flex align-items-center" href="#">
+										<div class="mr-3">
+											<div class="icon-circle bg-warning">
+												<i class="fas fa-exclamation-triangle text-white"></i>
+											</div>
+										</div>
+										<div>
+											<div class="small text-gray-500">December 2, 2019</div>
+											Spending Alert: We've noticed unusually high spending for your account.
+										</div>
+									</a>
+									<a class="dropdown-item text-center small text-gray-500" href="#">Show All
+										Alerts</a>
+								</div>
+							</li>
+
+							<!-- Nav Item - Messages -->
+
+							<!-- Nav Item - User Information -->
+							<li class="nav-item dropdown no-arrow">
+								<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+									<img class="img-profile rounded-circle" src="{% static '/assets/profile.png' %}">
+								</a>
+								<!-- Dropdown - User Information -->
+								<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+									aria-labelledby="userDropdown">
+									<a class="dropdown-item" href="#">
+										<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+										Profile
+									</a>
+									<a class="dropdown-item" href="#">
+										<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+										Settings
+									</a>
+									<a class="dropdown-item" href="#">
+										<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+										Activity Log
+									</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+										<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+										Logout
+									</a>
+								</div>
+							</li>
+
+						</ul>
+
+					</nav>
+
+				</div>
+			</div>
+
+			<div class="row ">
+				<div class="col-lg-6">
+					<div class="cards mb-3 f1whvlc6 " style="max-width: 540px; height: fit-content;">
+						<div class="row g-0">
+							<div class="col-md-8">
+								<div class="card-body">
+									<h5 class="card-title">Hey Adil ,</h5>
+									<p class="card-text">Download latest report.</p>
+									<button type="button" class="btn btn-info text-light p-3 "
+										style=" border-radius: 16px;">Download</button>
+								</div>
+
+							</div>
+							<div class="col-md-4">
+								<img src="{% static '/assets/demo.png' %}" class="img-fluid rounded-start" alt="...">
+							</div>
+						</div>
+					</div>
+					<div class="d-flex align-items-center">
+						<div class="cards"
+							style="width: 300px; height: 180px; background-color: #FB9678; border-radius: 15px; ">
+							<div class="card-body">
+								<h6 class="card-title text-light">Monthly Revenue</h6>
+								<h4 class="card-text text-light fs-4">Rs. 93564,43</h4>
+								<p class="text-light">Monthly Revenue</ap>
+							</div>
+						</div>
+						<div role="link" style=" height: 180px; width: 300px;"
+							aria-label=" Calendar. Manage and share your schedule.. " tabindex="0"
+							class="fui-Card ___qoe7lo0  f1whvlc6 mx-2" data-testid="more-m365-apps-Calendar"
+							bis_skin_checked="1">
+							<div class="" bis_skin_checked="1" style="height: fit-content;">
+								<div class="fui-CardHeader__header ___11rfdfp fd46tj4 f16hsg94 f22iagw"
+									id="ohp-fui-CardHeader__header208" bis_skin_checked="1"><span aria-hidden="true"
+										class="fui-Body1 fui-Text ___nzdt000 fk6fouc fkhj508 f1i3iumi figsok6 fpgzoln f1w7gpdv f6juhto f1mtd64y f1y7q3j9 f2jf649">
+										<h4 class="mx-2 fui-Text ___tmwg1s0 fk6fouc fkhj508 f1i3iumi fl43uef fpgzoln fw-bold f1rvi9lw f6juhto f1p9o1ba f1sil6mw f2jf649 fi1h9r9 fftbqpi"
+											title="Calendar" style=" margin-top: 5px ;" ;>Profit </h4>
+									</span>
+								</div>
+								<div class="fui-CardHeader__action ___yyk5ks0 f6yss9k fis13di fldnz9j"
+									bis_skin_checked="1">
+								</div>
+							</div>
+							<div aria-hidden="true"
+								class="___dljzgu0 f1p9o1ba f1sil6mw f1rvi9lw fi1h9r9 f1h500bm f1cmbuwj f1ugzwwg f104wqfl f1nxs5xn"
+								bis_skin_checked="1">Rs. 3256</div>
+
+							<canvas id="myChart" style="width:100%;max-width:fit-content"></canvas>
+							<script>
+								const xValues = [];
+								const yValues = [];
+								generateData("Math.sin(x)", 0, 10, 0.5);
+
+								new Chart("myChart", {
+									type: "line",
+									data: {
+										labels: xValues,
+										datasets: [{
+											fill: false,
+											pointRadius: 2,
+											borderColor: "rgba(0,0,255,0.5)",
+											data: yValues
+										}]
+									},
+									options: {
+										legend: { display: false },
+										title: {
+											display: true,
+
+											fontSize: 16
+										}
+									}
+								});
+								function generateData(value, i1, i2, step = 1) {
+									for (let x = i1; x <= i2; x += step) {
+										yValues.push(eval(value));
+										xValues.push(x);
+									}
+								}
+							</script>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+
+					<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+					<main style="height: 68vh;">
+						<div class="row  d-flex flex-row align-items-center justify-content-around">
+							<div class=" col-lg-6">
+
+								<h5 class="mx-2">Sales Overview</h5>
+
+							</div>
+
+							<div class="col-lg-3">
+								<div class="dropdown no-arrow p-1 mx-auto "
+									style="border: 2px solid #888888 ; border-radius: 10px;">
+									<a class="dropdown-toggle w-25 mx-2" href="#" role="button" id="dropdownMenuLink"
+										data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"
+										style="color: #8C8C8C;">
+										March <i class="fas fa-caret-down"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+										aria-labelledby="dropdownMenuLink">
+
+										<a class="dropdown-item" href="#">January </a>
+										<a class="dropdown-item" href="#">February </a>
+										<a class="dropdown-item" href="#">March </a>
+										<a class="dropdown-item" href="#">April </a>
+										<a class="dropdown-item" href="#">May </a>
+										<a class="dropdown-item" href="#">June </a>
+										<a class="dropdown-item" href="#">July </a>
+										<a class="dropdown-item" href="#">August </a>
+										<a class="dropdown-item" href="#">September </a>
+										<a class="dropdown-item" href="#">October </a>
+										<a class="dropdown-item" href="#">November </a>
+										<a class="dropdown-item" href="#">December </a>
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div id="bar-chart"></div>
+
+					</main>
+				</div>
+
+
+			</div>
+			<br /><br />
+			<div class="row">
+				<div class=" col-lg-4">
+					<div class="card shadow mb-4">
+						<!-- Card Header - Dropdown -->
+						<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h6 class="m-0 font-weight-bold text-primary">Total Sales</h6>
+							<div class="dropdown no-arrow">
+								<a class="dropdown-toggle w-25 mx-2" href="#" role="button" id="dropdownMenuLink"
+									data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"
+									style="color: #8C8C8C;">
+									March <i class="fas fa-caret-down"></i> <!-- Adding down arrow icon -->
+								</a>
+								<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+									aria-labelledby="dropdownMenuLink">
+
+									<a class="dropdown-item" href="#">January </a>
+									<a class="dropdown-item" href="#">February </a>
+									<a class="dropdown-item" href="#">March </a>
+									<a class="dropdown-item" href="#">April </a>
+									<a class="dropdown-item" href="#">May </a>
+									<a class="dropdown-item" href="#">June </a>
+									<a class="dropdown-item" href="#">July </a>
+									<a class="dropdown-item" href="#">August </a>
+									<a class="dropdown-item" href="#">September </a>
+									<a class="dropdown-item" href="#">October </a>
+									<a class="dropdown-item" href="#">November </a>
+									<a class="dropdown-item" href="#">December </a>
+
+								</div>
+							</div>
+						</div>
+						<!-- Card Body -->
+						<div class="card-body">
+							<div class="chart-pie pt-4 pb-2">
+								<canvas id="myPieChart"><img src="{% static '/assets/coins.png' %}" /></canvas>
+							</div>
+							<div class="mt-4 text-center small">
+								<span class="mr-2">
+									<i class="fas fa-circle text-primary"></i> Direct
+								</span>
+								<span class="mr-2">
+									<i class="fas fa-circle text-success"></i> Social
+								</span>
+								<span class="mr-2">
+									<i class="fas fa-circle text-info"></i> Referral
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class=" col-lg-7 shadow tables">
+					<div class="  d-flex flex-row align-items-center justify-content-between">
+
+						<h5 class=" mt-3">Sales Overview</h5>
+
+
+
+						<div class="mt-3">
+							<div class="dropdown no-arrow p-1  "
+								style="border: 2px solid #888888 ; border-radius: 10px;">
+								<a class="dropdown-toggle w-25 mx-2" href="#" role="button" id="dropdownMenuLink"
+									data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"
+									style="color: #8C8C8C;">
+									March <i class="fas fa-caret-down"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+									aria-labelledby="dropdownMenuLink">
+
+									<a class="dropdown-item" href="#">January </a>
+									<a class="dropdown-item" href="#">February </a>
+									<a class="dropdown-item" href="#">March </a>
+									<a class="dropdown-item" href="#">April </a>
+									<a class="dropdown-item" href="#">May </a>
+									<a class="dropdown-item" href="#">June </a>
+									<a class="dropdown-item" href="#">July </a>
+									<a class="dropdown-item" href="#">August </a>
+									<a class="dropdown-item" href="#">September </a>
+									<a class="dropdown-item" href="#">October </a>
+									<a class="dropdown-item" href="#">November </a>
+									<a class="dropdown-item" href="#">December </a>
+								</div>
+							</div>
+						</div>
+					</div> <br />
+					<table class="table  w-100">
+						<thead>
+							<tr>
+
+								<th scope="col">Product</th>
+								<th scope="col">Brand</th>
+								<th scope="col">Margin</th>
+								<th scope="col">Sales</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+
+								<td>LUCKY OPC</td>
+								<td>Bestway Company</td>
+								<td class="badge mt-1 text-secondary fw-bold mx-2 w-100"
+									style=" width: 60px !important; color: #fff ; font-size: 15px;border-radius: 10px;">
+									10%</td>
+								<td>39.7K</td>
+							</tr>
+							<tr>
+
+								<td>LUCKY OPC</td>
+								<td>Bestway Company</td>
+								<td class="badge text-secondary fw-bold mx-2 w-100"
+									style=" width: 60px !important; color: #fff ; font-size: 15px;border-radius: 10px;">
+									70%</td>
+								<td>39.7K</td>
+							</tr>
+							<tr>
+								<td>BLACK BULL OPC</td>
+								<td>Bestway Company</td>
+								<td class="badge text-secondary fw-bold mx-2 w-100"
+									style=" width: 60px !important; color: #fff ; font-size: 15px;border-radius: 10px;">
+									20%</td>
+								<td>39.7K</td>
+							</tr>
+							<tr>
+								<td>PAK CEMENT</td>
+								<td>Bestway Company</td>
+								<td class="badge text-secondary fw-bold mx-2 w-100"
+									style=" width: 60px !important; color: #fff ; font-size: 15px;border-radius: 10px;">
+									40%</td>
+								<td>39.7K</td>
+							</tr>
+							<tr>
+								<td>RAJ CEMENT</td>
+								<td>Bestway Company</td>
+								<td class="badge text-secondary fw-bold mx-2 w-100"
+									style=" width: 60px !important; color: #fff ; font-size: 15px;border-radius: 10px;">
+									30%</td>
+								<td>39.7K</td>
+							</tr>
+							<tr>
+								<td>PAK CEMENT</td>
+								<td>Bestway Company</td>
+								<td class="badge text-secondary fw-bold mx-2 w-100"
+									style=" width: 60px !important; color: #fff ; font-size: 15px;border-radius: 10px;">
+									40%</td>
+								<td>39.7K</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+				<div class="col-lg-1 d-flex align-items-end justify-content-end">
+					<button
+						style="background-color: #FB9678; width: 50px;border: none; font-size: 30px; border-radius: 50%; height: 50px; color: #fff;">+</button>
+				</div>
+			</div>
+
+
+		</div>
+
+
+	</div>
+
+	</div>
+	
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/popper.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/main.js'%}"></script>
+	<!-- Page level plugins -->
+	<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+	<!-- Page level custom scripts -->
+	<script src="{% static 'js/demo/chart-area-demo.js'%}"></script>
+	<script src="{% static 'js/demo/chart-pie-demo.js'%}"></script>
+</body>
+
+</html>
+	{% else %}
+
+
+	<!-- <div class="col-md-6 offset-md-3"></div> -->
+	<h1>Login</h1>
+	<br/>
+	
+	<form method="POST" action="{% url 'index' %}">
+		{%csrf_token %}
+		<form>
+			<div class="mb-3">
+			  <input type="text" class="form-control" name="username", placeholder="Username" required>
+	
+			</div></br>
+	
+			<div class="mb-3">
+			  <input type="password" class="form-control" name = "password", placeholder="Password" required>
+			</div>
+			<button type="submit" class="btn btn-primary">Login</button>
+	
+	</form>
+	
+	</div> 
+	
+	
+	{% endif %}
+	
+	{% endblock %}

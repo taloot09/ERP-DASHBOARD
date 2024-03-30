@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+      <strong>Customer Name: </strong><h1><b>{{ customer_sales_record.customer_name }}</b></h1>
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        <strong>Sales ID: </strong>{{ customer_sales_record.id }}</p>
+
+        <p class="card-text">
+        <strong>Date: </strong>{{ customer_sales_record.date }}</p>
+        <p class="card-text">
+        <strong>Total Amount: </strong>{{ customer_sales_record.total_amount }}</p>
+        <p class="card-text">
+        <strong>Discount: </strong>{{ customer_sales_record.discount }}</p>
+        <p class="card-text">
+        <strong>Debit Amount: </strong>{{ customer_sales_record.debit_amount }}</p>
+        <p class="card-text">
+        <strong>Credit Amount: </strong>{{ customer_sales_record.credit_amount }}</p>
+        <p class="card-text">
+        <strong>UNIT: </strong>{{ customer_sales_record.unit }}</p>
+        <p class="card-text">
+        <strong>Grand Total: </strong>{{ customer_sales_record.grand_total }}</p>
+        <p class="card-text">
+        <strong>Contact: </strong>{{ customer_sales_record.contact }}</p>
+        <p class="card-text">
+        <strong>Product Name: </strong>{{ customer_sales_record.product_name }}</p>
+        <p class="card-text">
+        <strong>Quantity: </strong>{{ customer_sales_record.quantity }}</p>
+        <p class="card-text">
+        <strong>Invoice ID: </strong>{{ customer_sales_record.invoice_id }}</p>
+        <p class="card-text">
+        <strong>Transaction Type: </strong>{{ customer_sales_record.type }}</p>
+
+    </div>
+</div>
+
+<br/><br/>
+<a href="{% url 'sales_details' %}" class="btn btn-secondary">Back</a>
+<a href="{% url 'delete_record' pk=customer_sales_record.id %}" class="btn btn-danger">Delete</a>
+
+
+
+{% endblock %}
