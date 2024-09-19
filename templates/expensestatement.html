@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+
+<div class="header">
+    <div class="left-box">
+        <p class="mx-3">As on: <span id="date">{{ current_date }}</span></p>
+        <div class="d-flex mx-3">
+            <p>Printed Date : {{ printed_date }}</p>
+            <p>Time : {{ current_time }}</p>
+        </div>
+    </div>
+    <hr />
+    <div class="right-box d-flex justify-content-end" style="margin-right: 20px;">
+        <p>Page 1/1</p>
+    </div>
+</div>
+
+<div class="table-container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="invoice-no">Expenser ID</th>
+                <th>Expenser</th>
+                <th>Category</th>
+                <th>Payment Mode</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td class="invoice-no"><span class="invoice-no-value">{{ expense.id }}</span></td>
+                <td><span class="date-value">{{ expense.expenser_name }}</span></td>
+                <td class="amount"><span class="amount-value">{{ expense.category.name }}</span></td>
+                <td class="amount"><span class="amount-value">{{ expense.get_payment_type_display }}</span></td>
+                <td class="amount"><span class="amount-value">{{ expense.amount }}</span></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No expenses recorded.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<br /><br /><br />
+<hr style="background-color: #A7A7A7;" />
+<br />
+
+<button style="background-color: #fff; border: 2px solid #000 ; border-radius: 20px ; padding: 12px; color: #000;"
+    class="d-flex justify-content-end float-right">Total Expenses Rs {{ total_amount|floatformat:2 }}</button>
+
+{% endblock %}

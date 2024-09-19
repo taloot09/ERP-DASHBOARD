@@ -1,0 +1,672 @@
+{% extends 'base.html' %}
+{% block main_content %}
+
+
+    <style>
+        .btns {
+            background-color: #5D5D5D;
+            color: #fff;
+            padding: 15px;
+            border-radius: 13.83px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 18px;
+        }
+
+        h5 {
+            font-size: 20px;
+        }
+
+        thead {
+            margin-top: 20px;
+            border-radius: 18px !important;
+            background-color: #5E5E5E;
+            color: #fff;
+
+        }
+
+        th,
+        td {
+            padding: 8px;
+
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-size: 20px;
+        }
+
+        .container {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        .label {
+            font-family: Poppins;
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 30px;
+            color: #000000;
+
+
+        }
+
+        text {
+            font-size: 20px;
+            padding: 10px;
+            background-color: #E7E5E5;
+
+            border: none !important;
+            cursor: pointer;
+            border-radius: 10px;
+            color: #000000;
+        }
+
+        thead {
+            border-radius: 50px !important;
+        }
+
+        tr td {
+            font-size:20px;
+            color: #000000;
+            border-bottom: 2px dotted;
+
+        }
+
+        .tr .td {
+            font-size: 20px;
+            color: #000000;
+        }
+
+        td h5 {
+            font-size: 20px;
+            color: #000000;
+        }
+
+        .nobtn {
+            background: none !important;
+
+        }
+
+        button {
+            padding: 8px 16px;
+            color: #000000;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Hide the default dropdown arrow */
+        /* select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            font-size: 20px;
+            padding: 15px;
+        
+            cursor: pointer;
+                     border: none;
+
+            background-color: #E7E5E5;
+
+            border-radius: 10px;
+
+            width: auto;
+
+
+            border-radius: 10px;
+        } */
+
+        .select2 {
+            width: 256px;
+
+
+            font-size: 20px;
+            padding: 10px;
+            /* border: 1px solid #ccc; */
+            cursor: pointer;
+            /* Indicate clickable area */
+            border: none !important;
+
+            background-color: #E7E5E5;
+
+            border-radius: 10px;
+
+
+        }
+
+        .invoinput {
+            font-family: Poppins;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 30px;
+            color: #000000;
+
+        }
+
+        .invoinputs {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            font-family: Poppins;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 30px;
+            color: #000000;
+            padding: 15px;
+            /* border: 1px solid #ccc; */
+            background: #E7E5E5;
+            border-radius: 4px;
+            cursor: pointer;
+            /* Indicate clickable area */
+            border: none;
+
+            /* background-color: #E7E5E5; */
+            font-size: 20px;
+            border-radius: 10px;
+
+            width: auto;
+        }
+
+        option {
+            font-size: 20px;
+        }
+        
+</style>
+
+<div class="container">
+     
+    <form method="POST" action="{% url 'invoice' %}">
+        {% csrf_token %}
+        <div class="invoice row">
+            <div class="d-flex align-items-center col-lg-6">
+                <div class="heading">Invoice No:</div>
+                <div class="mx-3">
+                    {{ sales_form.invoice_number.value }}  <!-- Display the auto-generated invoice number -->
+                </div>
+            </div>
+            
+            <div class="col-lg-6 d-flex align-items-center">
+                <p class="label">Date:</p>
+                <p class="value mx-1">{{ sales_form.date }}</p>
+            </div>
+        </div>
+        <!-- Customer Information -->
+        <div class="row d-flex align-items-center mt-3">
+            <div class="col-lg-6 d-flex align-items-center">
+                <div class="main_customer_name">Customer Name </div>
+                <div class="d-flex align-items-center">
+                    <input type="text" id="customer_name" name="customer_name" class="form-control">
+                    
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hidden input for customer ID -->
+        <input type="hidden" id="customerField" name="customer">
+        
+        <!-- Display Form Errors -->
+        {% if sales_form.errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for field in sales_form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
+        
+
+            <div class="col-lg-6 d-flex align-items-center mt-3">
+                <div class="label">Payment Type</div>
+                <div class="values mx-2">
+                    {{ sales_form.payment_type }}
+                </div>
+            </div>
+        </div>
+        <!-- Due Balance -->
+        <div class="row d-flex align-items-center mx-2 mt-3">
+            <div class="label">Due Balance</div>
+            <div class="d-flex align-items-center">
+                <div id="due_balance" class="invoinput mx-4 d-flex align-items-center justify-content-center fw-bold">0.00</div>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr class="trs">
+                    <th>Product Name</th>
+                    <th>Available Stock</th>
+                    <th>Quantity</th>
+                    <th>Units</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="product-rows">
+                <tr>
+                    <td>{{ sales_form.product }}</td>
+                    <td id="available-stock">0</td>
+                    <td>{{ sales_form.quantity }}</td>
+                    <td>{{ sales_form.unit }}</td>
+                    <td>{{ sales_form.rate }}</td>
+                    <td>{{ sales_form.amount }}</td>
+                    <td><button type="button" onclick="deleteRow(this)">X</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" onclick="addRow()">+</button>
+
+
+        <div class="d-flex align-items-center justify-content-end">
+            <div class="label">Sub Total</div>
+            <div class="invoinputs mx-2 fw-bold">
+                {{ sales_form.subtotal }}
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-end mt-1">
+            <div class="label">Discount</div>
+            <div class="invoinputs mx-2 fw-bold">
+                {{ sales_form.discount }}
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-end mt-1">
+            <div class="label">Paid</div>
+            <div class="invoinputs mx-2 fw-bold">
+                {{ sales_form.paid }}
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-end mt-1">
+            <div class="label">Due</div>
+            <div class="invoinputs mx-2 fw-bold">
+                {{ sales_form.due_balance }}
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-end mt-1">
+            <div class="label">Total</div>
+            <div class="invoinputs mx-2 fw-bold">
+                {{ sales_form.total }}
+            </div>
+        </div>
+        
+        <!-- Submit Button -->
+        <div class="d-flex justify-content-end">
+            <button class="d-flex justify-content-end mt-3 btns" style="float: inline-end;">Save</button>
+            <button class="d-flex justify-content-end mt-3 mx-2 btns" style="float: inline-end;">Save &
+                Print</button>
+        </div>
+
+
+
+{% verbatim %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    // function for fetch customer due balance
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the URL from a Django context variable
+        var getCustomerDueBalanceUrl = "/get-customer-due-balance/";
+
+        // Log the URL to verify it's being set correctly
+        console.log('URL for AJAX request:', getCustomerDueBalanceUrl);
+
+        document.getElementById('customer_name').addEventListener('change', function() {
+            var customerName = this.value;
+
+            if (customerName) {
+                $.ajax({
+                    type: 'GET',
+                    url: getCustomerDueBalanceUrl,  // Use the rendered URL
+                    data: {
+                        'customer_name': customerName
+                    },
+                    success: function(response) {
+                        if (response.due_balance !== undefined) {
+                            document.getElementById('due_balance').innerText = response.due_balance;
+                        } else {
+                            document.getElementById('due_balance').innerText = 'No customer found';
+                        }
+                    },
+                    error: function(xhr, errmsg, err) {
+                        console.error(xhr.status + ": " + xhr.responseText);
+                    }
+                });
+            } else {
+                document.getElementById('due_balance').innerText = '0.00';  // Default value
+            }
+        });
+    });
+
+
+
+        // URL for getting available stock
+        var getAvailableStockUrl = "/get-available-stock/";
+
+        $(document).ready(function() {
+            console.log('URL for getting available stock:', getAvailableStockUrl);
+    
+        $('#id_product').change(function() {
+            var productId = $(this).val();
+            console.log('Selected Product ID:', productId);
+
+        if (productId) {
+            $.ajax({
+                url: getAvailableStockUrl,  // Use the correct URL
+                data: {
+                    'product_id': productId
+                },
+                dataType: 'json',
+                success: function(data) {
+                    console.log('Data received:', data);
+                    $('#available-stock').text(data.available_stock);
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', status, error);
+                }
+            });
+        } else {
+            $('#available-stock').text('0');
+        }
+    });
+    // Bind product change event initially
+    bindProductChange();
+});
+
+function validateForm() {
+    let isValid = true;
+    const requiredFields = document.querySelectorAll('input[required], select[required]');
+    
+    requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            isValid = false;
+            field.classList.add('is-invalid');
+        } else {
+            field.classList.remove('is-invalid');
+        }
+    });
+
+    if (!isValid) {
+        alert('Please fill all required fields.');
+    }
+    
+    return isValid;
+}
+
+
+function submitInvoice() {
+    if (!validateForm()) return; // Exit if validation fails
+
+    const productIds = Array.from(document.querySelectorAll("select[name='product_id[]']")).map(select => select.value);
+    const quantities = Array.from(document.querySelectorAll("input[name='quantity[]']")).map(input => input.value);
+    const rates = Array.from(document.querySelectorAll("input[name='rate[]']")).map(input => input.value);
+    const amounts = Array.from(document.querySelectorAll("input[name='amount[]']")).map(input => input.value);
+    const units = Array.from(document.querySelectorAll("select[name='unit[]']")).map(select => select.value);
+
+    console.log('Product IDs:', productIds);
+    console.log('Quantities:', quantities);
+    console.log('Rates:', rates);
+    console.log('Amounts:', amounts);
+    console.log('Units:', units);
+
+    const data = {
+        customer_name: document.querySelector("input[name='customer_name']").value,
+        discount: document.querySelector("input[name='discount']").value,
+        paid: document.querySelector("input[name='paid']").value,
+        product_id: productIds,
+        quantity: quantities,
+        rate: rates,
+        amount: amounts,
+        unit: units
+    };
+
+    console.log('Form Data:', data);
+
+    fetch('/invoice/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Invoice created successfully!');
+            window.location.href = '/invoice/';
+        } else {
+            alert('Error: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.log('Error:', error);
+    });
+}
+function addProductField() {
+    var container = document.getElementById('dynamic-fields');
+    var newField = document.createElement('input');
+    newField.name = 'product[]';  // Ensure proper naming
+    newField.type = 'text';
+    container.appendChild(newField);
+}
+
+
+
+
+
+
+    // Function to bind the product change event to the select element
+function bindProductChange() {
+    $('select[name="product_id[]"]').off('change').on('change', function() {
+        var productId = $(this).val();
+        var $row = $(this).closest('tr'); // Find the closest row to this select element
+
+        if (productId) {
+            $.ajax({
+                url: '/get-available-stock/', // Endpoint to get available stock
+                type: 'GET',
+                data: {'product_id': productId},
+                success: function(response) {
+                    $row.find('input[name="available_stock[]"]').val(response.available_stock);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Failed to load resource:', error);
+                }
+            });
+        } else {
+            $row.find('input[name="available_stock[]"]').val('0'); // Reset if no product is selected
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Attach event listener to product dropdowns
+    document.querySelectorAll('[id^=id_product]').forEach(function (productDropdown) {
+        productDropdown.addEventListener('change', function () {
+            // Make AJAX call to fetch available stock
+            const productId = this.value;
+            if (productId) {
+                fetch(`/get-available-stock/?product_id=${productId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Find the corresponding row and update available stock
+                        const row = this.closest('tr');
+                        row.querySelector('#available-stock').textContent = data.available_stock;
+                    });
+            }
+        });
+    });
+});
+
+
+// Bind the product change event initially and whenever a new row is added
+$(document).ready(function() {
+    bindProductChange(); // Bind initially when the page loads
+});
+
+// Sample products array (you may fetch these from the server)
+var products = [
+    { id: 1, product_name: "Product 1" },
+    { id: 2, product_name: "Product 2" }
+];
+
+
+// Function to initialize the table with the first row
+function initializeTable() {
+    addRow(); // Add the first row using the same function used for adding new rows
+}
+
+// Function to add a new product row to the table
+function addRow() {
+    var tableBody = document.getElementById('product-rows');
+    var row = tableBody.insertRow();
+
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+    var cell6 = row.insertCell(5);
+    var cell7 = row.insertCell(6);
+
+    // Populate the product dropdown
+    var productOptions = '<option value="">Select Product</option>';
+    products.forEach(function(product) {
+        productOptions += `<option value="${product.id}">${product.product_name}</option>`;
+    });
+
+    cell1.innerHTML = `
+        <select name="product_id[]" class="form-control" onchange="fetchRetailPrice(this)">
+            ${productOptions}
+        </select>`;
+    cell2.innerHTML = "<input type='text' name='available_stock[]' class='form-control' readonly>";
+    cell3.innerHTML = "<input type='number' name='quantity[]' class='form-control' oninput='updateAmount(this)'>";
+    cell4.innerHTML = `
+        <select name="unit[]" class="form-control" onchange="updateRate(this)">
+            <option value="bag">Bag</option>
+            <option value="ton">Ton</option>
+        </select>`;
+    cell5.innerHTML = "<input type='text' name='rate[]' class='form-control' oninput='updateAmount(this)' readonly>";
+    cell6.innerHTML = "<input type='text' name='amount[]' class='form-control' readonly>";
+    cell7.innerHTML = "<button type='button' class='btn btn-danger' onclick='deleteRow(this)'>X</button>";
+
+    bindProductChange(); // Bind event for the new row
+}
+
+
+// Function to fetch and update the retail price when a product is selected
+function fetchRetailPrice(selectElement) {
+    var productId = selectElement.value;
+    var row = selectElement.closest('tr');
+    var rateInput = row.querySelector('input[name="rate[]"]');
+    var stockInput = row.querySelector('input[name="available_stock[]"]');
+    var unitSelect = row.querySelector('select[name="unit[]"]');
+
+    if (productId) {
+        $.ajax({
+            url: '/get-product-rates/',
+            type: 'GET',
+            data: { 'product_id': productId },
+            success: function(response) {
+                console.log('Server response:', response);
+                if (response.rate_per_bag !== undefined && response.rate_per_ton !== undefined) {
+                    // Store the rates in the select element's dataset
+                    unitSelect.dataset.ratePerBag = response.rate_per_bag;
+                    unitSelect.dataset.ratePerTon = response.rate_per_ton;
+                    updateRate(unitSelect);
+                } else {
+                    console.error('Invalid response:', response);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', status, error);
+            }
+        });
+    } else {
+        rateInput.value = '';  // Clear the rate if no product is selected
+    }
+}
+
+// Function to update the rate based on the selected unit
+function updateRate(unitSelect) {
+    var row = unitSelect.closest('tr');
+    var rateInput = row.querySelector('input[name="rate[]"]');
+
+    // Get the rate based on the selected unit
+    var rate = unitSelect.value === 'bag' 
+        ? unitSelect.dataset.ratePerBag 
+        : unitSelect.dataset.ratePerTon;
+
+    rateInput.value = rate || ''; // Set the rate or clear it if not available
+
+    updateAmount(rateInput); // Update the amount as well
+}
+
+
+// Function to update the amount based on quantity and rate inputs
+function updateAmount(input) {
+    var row = input.closest('tr');
+    var quantity = row.querySelector('input[name="quantity[]"]').value;
+    var rate = row.querySelector('input[name="rate[]"]').value;
+    var amountCell = row.querySelector('input[name="amount[]"]');
+
+    if (quantity && rate) {
+        amountCell.value = (quantity * rate).toFixed(2);
+    } else {
+        amountCell.value = '';
+    }
+}
+// Function to update the stock value based on the selected product
+function updateStock(select) {
+    var productId = select.value;
+    var row = select.closest('tr');
+    var stockCell = row.querySelector('input[name="available_stock[]"]');
+
+    if (productId) {
+        $.ajax({
+            url: '/get-available-stock/',  // Update to your actual endpoint
+            type: 'GET',
+            data: { 'product_id': productId },
+            success: function(response) {
+                stockCell.value = response.available_stock;
+            },
+            error: function(xhr, status, error) {
+                console.log('Failed to load resource:', error);
+            }
+        });
+    } else {
+        stockCell.value = '0';
+    }
+}
+
+// Function to delete a product row
+function deleteRow(button) {
+    var row = button.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
+// Initialize the table when the page loads
+window.onload = function() {
+    initializeTable(); // Initialize the table with the first row
+};
+
+
+
+</script>
+<style>.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}</style>
+{% endverbatim %}
+{% endblock %}

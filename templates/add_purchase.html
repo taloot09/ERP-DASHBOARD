@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block main_content %}
+<div class="form-container">
+    <h2>Add Purchase</h2>
+    <form method="post" class="purchase-form">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Render the main purchase form -->
+
+        <h3>Products</h3>
+        <div id="product-forms">
+            {{ formset.management_form }}  <!-- Include management form for formset -->
+
+            {% for form in formset %}
+                <div class="product-form">
+                    {{ form.as_p }} <!-- Render the product form inputs -->
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="form-actions">
+            <button type="button" id="add-product" class="btn btn-secondary">Add Another Product</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+    <a href="{% url 'manage_purchases' %}" class="btn btn-secondary">Manage Purchases</a>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Convert Django variable to JavaScript safely
+        let productFormIndex = parseInt('{{ formset.total_forms|default:"0" }}', 10); // Safely convert to integer
+        
+        // Function to add a new product form
+        document.getElementById('add-product').onclick = function () {
+            const productFormTemplate = `
+                <div class="product-form">
+                    <h4>Product ${productFormIndex + 1}</h4>
+                    <label>Product Name:</label>
+                    <input type="text" name="products-${productFormIndex}-product_name" class="form-control" required>
+                    <label>Product Brand:</label>
+                    <input type="text" name="products-${productFormIndex}-product_brand" class="form-control" required>
+                    <label>Rate:</label>
+                    <input type="number" step="0.01" name="products-${productFormIndex}-rate" class="form-control" required>
+                    <label>Quantity:</label>
+                    <input type="number" name="products-${productFormIndex}-quantity" class="form-control" required>
+                    <label>Discount:</label>
+                    <input type="number" step="0.01" name="products-${productFormIndex}-discount" class="form-control">
+                    <input type="hidden" name="products-${productFormIndex}-units" value="bags">
+                    <button type="button" onclick="this.parentNode.parentNode.remove();">Remove Product</button>
+                </div>
+            `;
+            document.getElementById('product-forms').insertAdjacentHTML('beforeend', productFormTemplate);
+            productFormIndex++; // Increment index for the next product form
+        };
+    });
+</script>
+
+{% endblock %}

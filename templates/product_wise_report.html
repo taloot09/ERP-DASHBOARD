@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+<div class="report-container">
+    <h2>Product Wise Report</h2>
+
+    <!-- Report Summary -->
+    <div class="report-summary">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Brand</th>
+                    <th>Category</th>
+                    <th>Total Sales</th>
+                    <th>Total Quantity Sold</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in product_data %}
+                <tr>
+                    <td>{{ data.product.product_name }}</td>
+                    <td>{{ data.product.brand }}</td>
+                    <td>{{ data.product.category }}</td>
+                    <td>{{ data.total_sales }}</td>
+                    <td>{{ data.total_quantity }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Download PDF Button -->
+    <button id="download-pdf-btn">Download PDF</button>
+</div>
+
+<style>
+    .report-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .report-container h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .report-summary table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .report-summary table, .report-summary th, .report-summary td {
+        border: 1px solid #ddd;
+    }
+
+    .report-summary th, .report-summary td {
+        padding: 10px;
+        text-align: center;
+    }
+
+    .report-summary th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .report-summary td {
+        font-size: 14px;
+    }
+
+    #download-pdf-btn {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 30px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    #download-pdf-btn:hover {
+        background-color: #218838;
+    }
+</style>
+
+<script>
+    document.getElementById('download-pdf-btn').addEventListener('click', function() {
+        window.location.href = "{% url 'product_wise_report' %}";
+    });
+</script>
+
+{% endblock %}

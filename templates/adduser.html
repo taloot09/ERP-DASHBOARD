@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block main_content %}
+<div class="col-md-6 offset-md-3">
+    <h1>Add New User</h1>
+    <br/>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {% if form.errors %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            Your form has errors. Please try again
+            {% for field in form %}
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        {{ form.as_p }}
+        <br/>
+        <button type="submit" class="btn btn-primary">Add User</button>
+    </form>
+</div>
+{% endblock %}

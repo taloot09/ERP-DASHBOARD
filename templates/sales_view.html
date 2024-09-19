@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+<div class="sales-container">
+    <h2>Sales Overview</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Invoice Number</th>
+                <th>Date</th>
+                <th>Customer Name</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Rate</th>
+                <th>Amount</th>
+                <th>Payment Type</th>
+                <th>Paid</th>
+                <th>Discount</th>
+                <th>Due Balance</th>
+                <th>Subtotal</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sale in sales %}
+            <tr>
+                <td>{{ sale.invoice_number }}</td>
+                <td>{{ sale.date }}</td>
+                <td>{{ sale.customer_name }}</td>
+                <td>{{ sale.product_name }}</td>
+                <td>{{ sale.quantity }}</td>
+                <td>{{ sale.unit }}</td>
+                <td>{{ sale.rate }}</td>
+                <td>{{ sale.amount }}</td>
+                <td>{{ sale.payment_type }}</td>
+                <td>{{ sale.paid }}</td>
+                <td>{{ sale.discount }}</td>
+                <td>{{ sale.due_balance }}</td>
+                <td>{{ sale.subtotal }}</td>
+                <td>{{ sale.total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .sales-container {
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .sales-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+{% endblock %}

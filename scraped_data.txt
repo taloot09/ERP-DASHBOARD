@@ -1,0 +1,22 @@
+Page Title: KIET Learning Management System: Log in to the site
+
+Paragraph 1: 
+
+Paragraph 2: Username: Your Student Number e.g. 3214
+
+Paragraph 3: 
+
+Paragraph 4: Username: Your Employe Number e.g. 324
+
+Paragraph 5: Already have an account?
+
+Paragraph 6: Already have an account?
+
+Paragraph 7: Already have an account?
+
+Link 1: Skip to main content (#maincontent)
+Link 2:  (None)
+Link 3: LOGIN AS STUDENT (#collapseOne)
+Link 4: LOGIN AS FACULTY (#collapseTwo)
+Link 5: LOGIN AS PARENT (#collapseThree)
+Link 6: Click here (https://lms.kiet.edu.pk/kietlms/my/pwemail/identify.php)

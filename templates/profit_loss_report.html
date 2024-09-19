@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+<div class="report-container">
+    <h2>Profit/Loss Report</h2>
+    
+    <!-- Filter Options -->
+    <div class="report-filters">
+        <label for="time-period">Select Time Period:</label>
+        <select id="time-period" onchange="filterReport()">
+            <option value="all">All</option>
+            <option value="yearly">Yearly</option>
+            <option value="monthly">Monthly</option>
+            <option value="weekly">Weekly</option>
+        </select>
+    </div>
+
+    <!-- Report Summary -->
+    <div class="report-summary">
+        <p><strong>Total Sales:</strong> {{ total_sales }}</p>
+        <p><strong>Total Purchase Cost:</strong> {{ total_purchase_cost }}</p>
+        <p><strong>Total Expenses:</strong> {{ total_expenses }}</p>
+        <div class="profit-loss-box">
+            <p><strong>Profit/Loss:</strong></p>
+            <p class="profit-loss-value">
+                {% if profit_loss >= 0 %}
+                    <span class="profit">{{ profit_loss }}</span>
+                {% else %}
+                    <span class="loss">{{ profit_loss }}</span>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <!-- Expenses Table -->
+    {% if expenses %}
+    <div class="expenses-table">
+        <h3>Expense Breakdown</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.category }}</td>
+                    <td>{{ expense.amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    <!-- Download PDF Button -->
+    <button id="download-pdf-btn">Download PDF</button>
+</div>
+
+<style>
+    .report-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .report-container h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .report-filters {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .report-filters label {
+        font-size: 16px;
+        margin-right: 10px;
+    }
+
+    .report-filters select {
+        padding: 5px 10px;
+        font-size: 16px;
+    }
+
+    .report-summary p {
+        font-size: 18px;
+        line-height: 1.8;
+        margin-bottom: 15px;
+    }
+
+    .report-summary p strong {
+        color: #444;
+    }
+    .profit-loss-box {
+        background-color: #f4f4f4;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .profit-loss-value {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .profit {
+        color: green;
+        font-weight: bold;
+    }
+
+    .loss {
+        color: red;
+        font-weight: bold;
+    }
+
+    .expenses-table {
+        margin-top: 20px;
+    }
+
+    .expenses-table h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .expenses-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .expenses-table table, .expenses-table th, .expenses-table td {
+        border: 1px solid #ddd;
+    }
+
+    .expenses-table th, .expenses-table td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    .expenses-table th {
+        background-color: #f4f4f4;
+    }
+
+    #download-pdf-btn {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 30px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    #download-pdf-btn:hover {
+        background-color: #218838;
+    }
+</style>
+
+<script>
+    function filterReport() {
+        var period = document.getElementById('time-period').value;
+        // AJAX request to filter report based on selected period
+        // Example: send request to a view with the selected period as a parameter
+        window.location.href = "?period=" + period;
+    }
+
+    document.getElementById('download-pdf-btn').addEventListener('click', function() {
+        window.location.href = "{% url 'download_profit_loss_pdf' %}?period=" + document.getElementById('time-period').value;
+    });
+</script>
+
+{% endblock %}

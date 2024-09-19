@@ -1,13 +1,67 @@
-from django.urls import path, include
-from django.contrib import admin
-from . import views
+# analytical_dashboard/urls.py
 
+from django.urls import path
+from . import views
+from .views import add_product
+from .views import manage_products
+from .views import add_customer, customer_list,  create_invoice, cashbook, record_expense, add_expense_category, delete_category, expense_statement, add_quotations, record_dead_stock, sales_data, profit_loss_report
+from .views import sales_report, download_sales_report_pdf, product_wise_report, manage_units, dashboard_view, profit_graph, sales_overview_data, advance_deposit, update_deposit, delete_deposit, CustomerProfileView, delete_invoice, get_monthly_sales, statistics_view
+from .views import product_performance, get_sales_data, price_changes_graph, search_view, get_customer_due_balance, get_available_stock
 urlpatterns = [
     path('', views.index, name='index'),
+    path('login/', views.login_user, name='login'),
     path('logout/', views.logout_user, name='logout'),
     path('register/', views.register_user, name='register'),
-    path('Sales/', views.sales_record, name='sales_details'),
-    path('Sales/<int:pk>/', views.customer_record, name='record'),
-    path('delete_record/<int:pk>/', views.delete_record, name='delete_record'),
-    path('add_sales/', views.add_sales, name='add_sales'),
+    path('add_user/', views.add_user, name='add_user'),
+    path('add-product/', add_product, name='add_product'),
+    path('manage-products/', manage_products, name='manage_products'),
+    path('view-product/<int:product_id>/', views.view_product, name='view_product'),
+    path('delete-product/<int:product_id>/', views.delete_product, name='delete_product'),
+    path('update-product/<int:product_id>/', views.update_product, name='update_product'),
+    path('price-change/', views.price_change, name='price_change'),
+    path('add_customer/', add_customer, name='add_customer'),
+    path('customer_list/', customer_list, name='customer_list'),
+    path('invoice/create/', views.create_invoice, name='create_invoice'),
+    path('sales/', views.sales_view, name='sales_view'),
+    path('get_product_details/<int:product_id>/', views.get_product_details, name='get_product_details'),
+    #path('get_customer_details/<str:contact>/', views.get_customer_details, name='get_customer_details'),
+    #path('save-customer-info/', save_customer_info, name='save_customer_info'),
+    path('invoice/', views.invoice_view, name='invoice'),
+    path('cashbook/', cashbook, name='cashbook'),
+    path('record_expense/', record_expense, name='record_expense'),
+    path('add_expense_category/', views.add_expense_category, name='add_expense_category'),
+    path('delete_category/<int:category_id>/', delete_category, name='delete_category'),
+    path('expense_statement/', expense_statement, name='expense_statement'),
+    path('cheque-transactions/', views.cheque_transactions, name='cheque_transactions'),
+    path('record-dead-stock/', views.record_dead_stock, name='record_dead_stock'),
+    path('add-quotations/', add_quotations, name='add_quotations'),
+    path('api/sales-data/', sales_data, name='sales_data'),
+    path('suppliers/', views.supplier_list, name='supplier_list'),
+    path('purchases/', views.add_purchase, name='add_purchase'),
+    path('manage_purchases/', views.manage_purchases, name='manage_purchases'),
+    path('reports/profit-loss/', profit_loss_report, name='profit_loss_report'),
+    path('reports/profit-loss/download/', views.download_profit_loss_pdf, name='download_profit_loss_pdf'),
+    path('reports/sales/', sales_report, name='sales_report'),
+    path('reports/sales/download/', download_sales_report_pdf, name='download_sales_report_pdf'),
+    path('product-wise-report/', product_wise_report, name='product_wise_report'),
+    path('product_wise_report', views.product_wise_report, name='product_wise_report'),
+    path('products/', views.product_list, name='product_list'),
+    path('manage-units/<int:product_id>/', views.manage_units, name='manage_units'),
+    path('index/', dashboard_view, name='dashboard'),
+    path('index/', profit_graph, name='index'),
+    path('sales-overview-data/', sales_overview_data, name='sales_overview_data'),
+    path('add-advance-deposit/', views.advance_deposit, name='advance_deposit'),
+    path('update-deposit/<int:pk>/', update_deposit, name='update_deposit'),
+    path('delete-deposit/<int:pk>/', delete_deposit, name='delete_deposit'),
+    path('customer/<int:pk>/', CustomerProfileView.as_view(), name='customer_profile'),
+     path('delete_invoice/<int:invoice_id>/', delete_invoice, name='delete_invoice'),
+     path('statistics/', statistics_view, name='statistics'),
+     path('get-monthly-sales/', get_monthly_sales, name='get_monthly_sales'),
+     path('get-sales-data/', views.get_sales_data, name='get_sales_data'),
+     path('product-performance/', product_performance, name='product_performance'),
+     path('price-changes/<int:product_id>/', price_changes_graph, name='price_changes'),
+     path('search/', search_view, name='search'),
+     path('get-customer-due-balance/', views.get_customer_due_balance, name='get_customer_due_balance'),
+     path('get-available-stock/', views.get_available_stock, name='get_available_stock'),
+     path('get-product-rates/', views.get_product_rates, name='get-product-rates'),
 ]

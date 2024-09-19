@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+<div class="container">
+    <h2>Products List</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Manage Units</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.product_name }}</td>
+                    <td><a href="{% url 'manage_units' product.id %}" class="btn btn-primary">Manage Units</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

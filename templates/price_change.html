@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block main_content %}
+<div class="container">
+    <h2 class="text-center">Product Price Change</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <select class="form-control" id="productSelect" name="product_id">
+            <option value="">Select Product</option>
+            {% for product in products %}
+            <option value="{{ product.id }}" data-purchase-price="{{ product.purchase_price }}" data-retail-price="{{ product.retail_price }}">
+                {{ product.product_name }}
+            </option>
+            {% endfor %}
+        </select>
+        <br />
+        <label for="current_purchase_price">Current Purchase Price</label>
+            <input class="form-control mt-3" type="text" id="current_purchase_price" readonly placeholder="Current Purchase Price" />
+        <br />
+        <input class="form-control mt-3" type="text" placeholder="New Purchase Price" name="new_purchase_price" />
+        <br />
+        <label for="current_retail_price">Current Retail Price</label>
+            <input class="form-control mt-3" type="text" id="current_retail_price" readonly placeholder="Current Retail Price" />
+        <br />
+        <input class="form-control mt-3" type="text" placeholder="New Retail Price" name="new_retail_price" />
+        <br />
+        <input class="form-control mt-3" type="text" placeholder="Quantity" name="quantity" />
+        <br />
+        <div class="d-flex justify-content-center mt-3">
+            <button type="submit" class="btn btn-primary mx-2">Save</button>
+            <button type="button" class="btn btn-secondary mx-2">Decline</button>
+        </div>
+    </form>
+
+    <h2 class="text-center mt-5">Recent History</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Product</th>
+                <th>Variation</th>
+                <th>Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for history in price_history %}
+            <tr>
+                <td>{{ history.change_date }}</td>
+                <td>{{ history.product.product_name }}</td>
+                <td>{{ history.purchase_variation }}</td>
+                <td>{{ history.new_purchase_price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var productSelect = document.getElementById('productSelect');
+
+        productSelect.addEventListener('change', function() {
+            var selectedOption = productSelect.options[productSelect.selectedIndex];
+            var purchasePrice = selectedOption.getAttribute('data-purchase-price');
+            var retailPrice = selectedOption.getAttribute('data-retail-price');
+            
+            document.getElementById('current_purchase_price').value = purchasePrice;
+            document.getElementById('current_retail_price').value = retailPrice;
+        });
+    });
+</script>
+{% endblock %}

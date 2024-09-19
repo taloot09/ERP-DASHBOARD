@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block main_content %}
+
+<div class="form-container">
+    <h2>Add Supplier</h2>
+    <form method="post" class="supplier-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="supplier_name">Supplier Name</label>
+            {{ form.supplier_name }}
+        </div>
+        <div class="form-group">
+            <label for="contact">Contact</label>
+            {{ form.contact }}
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            {{ form.address }}
+        </div>
+        <div class="form-group">
+            <label for="reference">Reference</label>
+            {{ form.reference }}
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>
+
+<div class="table-container">
+    <h2>Suppliers</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Supplier Name</th>
+                <th>Contact</th>
+                <th>Address</th>
+                <th>Reference</th>
+                <th>Total Payable</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for supplier in suppliers %}
+            <tr>
+                <td>{{ supplier.supplier_name }}</td>
+                <td>{{ supplier.contact }}</td>
+                <td>{{ supplier.address }}</td>
+                <td>{{ supplier.reference }}</td>
+                <td>{{ supplier.total_payable }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+    .supplier-form .form-group {
+        margin-bottom: 20px;
+    }
+
+    .supplier-form label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .supplier-form input,
+    .supplier-form textarea,
+    .supplier-form select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .supplier-form textarea {
+        height: 100px;
+        resize: vertical;
+    }
+
+    .form-actions {
+        text-align: right;
+    }
+
+    .form-actions .btn {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .form-actions .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .table-container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+    .table-container table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table-container th,
+    .table-container td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .table-container th {
+        background-color: #f2f2f2;
+    }
+
+    .table-container tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .table-container tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+{% endblock %}

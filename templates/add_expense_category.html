@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block main_content %}
+
+<div class="add">
+    <h2 class="h2 text-center">Add Category</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.name.label_tag }} {{ form.name }}
+        <div class="d-flex mx-auto justify-content-center mt-3">
+            <button type="submit" class="btn mx-2">Save</button>
+        </div>
+    </form>
+    <h3 class="h3 text-center mt-4">Existing Categories</h3>
+    <ul class="category-list">
+        {% for category in categories %}
+            <li>
+                {{ category.name }}
+                <form method="post" action="{% url 'delete_category' category.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

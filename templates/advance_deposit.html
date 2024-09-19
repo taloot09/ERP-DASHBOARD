@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% block main_content %}
+
+<div class="container mt-4">
+    <!-- Form for Adding/Editing Advance Deposit -->
+    <div class="form-container">
+        <h2>{{ form.instance.pk|yesno:"Update Deposit,Add Advance / Deposit" }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a href="{% url 'advance_deposit' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Table for Displaying Deposits -->
+    <div class="table-container mt-4">
+        <h2>Advance Deposits</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Amount</th>
+                    <th>Payment Type</th>
+                    <th>Date Created</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for deposit in deposits %}
+                <tr>
+                    <td>{{ deposit.customer }}</td>
+                    <td>{{ deposit.amount }}</td>
+                    <td>{{ deposit.get_payment_type_display }}</td>
+                    <td>{{ deposit.date }}</td>
+                    <td>
+                        <a href="{% url 'update_deposit' deposit.pk %}" class="btn btn-warning btn-sm">Update</a>
+                        <form action="{% url 'delete_deposit' deposit.pk %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+    .form-container h2 {
+        margin-bottom: 20px;
+    }
+
+    .form-container .form-actions {
+        text-align: right;
+        margin-top: 20px;
+    }
+
+    .form-container .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .form-container .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .form-container .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .form-container .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+    .table-container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+    .table-container table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table-container th,
+    .table-container td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .table-container th {
+        background-color: #f2f2f2;
+    }
+
+    .table-container tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .table-container tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .table-container .btn {
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+    .table-container .btn-warning {
+        background-color: #ffc107;
+        color: #000;
+        border: none;
+    }
+
+    .table-container .btn-warning:hover {
+        background-color: #e0a800;
+    }
+
+    .table-container .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+    }
+
+    .table-container .btn-danger:hover {
+        background-color: #c82333;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block main_content %}
+
+
+
+<style>
+  /* Add this CSS to style the chart container and hide the watermark */
+  .chart-container {
+    width: 50%;  /* Adjust width as needed */
+    height: 400px; /* Adjust height as needed */
+    margin-left: 0; /* Align to the left */
+    margin-right: auto; /* Center alignment */
+    float: left; /* Align to the left */
+  }
+
+  /* Hide watermark */
+  .fusioncharts-container {
+    position: relative;
+  }
+
+  .fusioncharts-watermark {
+    display: none !important;
+  }
+  .fusioncharts-container svg path {
+    display: none; /* Hide all paths inside SVG */
+  }
+  .fusioncharts-container svg rect[x="4.8"][y="6.43"] {
+  display: none;
+}
+.fusioncharts-container svg rect[x="0"][y="1.63"][width="3.33"][height="9.76"] {
+  display: none;
+}
+</style>
+<!-- Add this script to your statistics page -->
+<script src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+<script src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.candy.js"></script>
+<script>
+  // Fetch sales data from Django view
+  function fetchSalesData() {
+    fetch('/get-monthly-sales/')
+      .then(response => response.json())
+      .then(data => {
+        var myChart = new FusionCharts({
+          type: "column2d",
+          renderAt: "chart-container",
+          width: "100%",
+          height: "100%",
+          dataFormat: "json",
+          dataSource: {
+            chart: {
+              caption: "Total Sales by Month",
+              subcaption: "For the year 2024",
+              xaxisname: "Month",
+              yaxisname: "Total Sales",
+              numbersuffix: "PKR",
+              theme: "candy"
+            },
+            data: data
+          }
+        }).render();
+      })
+      .catch(error => console.error('Error fetching sales data:', error));
+  }
+
+  // Call the function to load the chart data
+  fetchSalesData();
+
+// sales by product graph
+
+
+
+
+</script>
+
+<div class="chart-container" id="chart-container"></div>
+
+
+
+{% endblock %}

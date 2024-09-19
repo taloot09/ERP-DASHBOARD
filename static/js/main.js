@@ -19,69 +19,78 @@
 })(jQuery);
 
 
-google.load("visualization", "1", { packages: ["corechart"] });
-google.setOnLoadCallback(drawCharts);
-function drawCharts() {
+// google.load("visualization", "1", { packages: ["corechart"] });
+// google.setOnLoadCallback(() => drawChart('March'));  // Default month
 
+// function drawChart(month) {
+//     fetch(`/sales-overview-data/?month=${month}`)
+//         .then(response => response.json())
+//         .then(data => {
+//             var chartData = google.visualization.arrayToDataTable([
+//                 ['Day', 'Current', 'Previous'],
+//                 ...data.map(item => [item.day, item.current, item.previous])
+//             ]);
 
-  var barData = google.visualization.arrayToDataTable([
-    ['Day', 'Current', 'Previous'],
-    ['Mon', 1370, 910],
-    ['Tue', 660, 400],
-    ['Wed', 1030, 540],
-    ['Thu', 1000, 480],
-    ['Fri', 1170, 960],
-    ['Sat', 660, 320]
-  ]);
-  // set bar chart options
-  var barOptions = {
-    focusTarget: 'category',
-    backgroundColor: 'transparent',
-    colors: ['#FB9678', '#03C9D7'],
-    fontName: 'Open Sans',
-    chartArea: {
-      left: 50,
-      top: 10,
-      width: '75%',
-      height: '85%',
-      borderRadius: "20%"
-    },
-    bar: {
-      groupWidth: '80%'
-    },
-    hAxis: {
-      textStyle: {
-        fontSize: 11
-      }
-    },
-    vAxis: {
-      minValue: 0,
-      maxValue: 1500,
-      baselineColor: '#DDD',
-      gridlines: {
-        color: '#DDD',
-        count: 4
-      },
-      textStyle: {
-        fontSize: 11
-      }
-    },
-    legend: {
-      position: 'bottom',
-      textStyle: {
-        fontSize: 12
-      }
-    },
-    animation: {
-      duration: 1200,
-      easing: 'out',
-      startup: true
-    }
-  };
-  // draw bar chart twice so it animates
-  var barChart = new google.visualization.ColumnChart(document.getElementById('bar-chart'));
-  //barChart.draw(barZeroData, barOptions);
-  barChart.draw(barData, barOptions);
+//             var barOptions = {
+//                 focusTarget: 'category',
+//                 backgroundColor: 'transparent',
+//                 colors: ['#FB9678', '#03C9D7'],
+//                 fontName: 'Open Sans',
+//                 chartArea: {
+//                     left: 50,
+//                     top: 10,
+//                     width: '75%',
+//                     height: '85%',
+//                     borderRadius: "20%"
+//                 },
+//                 bar: {
+//                     groupWidth: '80%'
+//                 },
+//                 hAxis: {
+//                     textStyle: {
+//                         fontSize: 11
+//                     }
+//                 },
+//                 vAxis: {
+//                     minValue: 0,
+//                     maxValue: 1500,
+//                     baselineColor: '#DDD',
+//                     gridlines: {
+//                         color: '#DDD',
+//                         count: 4
+//                     },
+//                     textStyle: {
+//                         fontSize: 11
+//                     }
+//                 },
+//                 legend: {
+//                     position: 'bottom',
+//                     textStyle: {
+//                         fontSize: 12
+//                     }
+//                 },
+//                 animation: {
+//                     duration: 1200,
+//                     easing: 'out',
+//                     startup: true
+//                 }
+//             };
+
+//             var barChart = new google.visualization.ColumnChart(document.getElementById('bar-chart'));
+//             barChart.draw(chartData, barOptions);
+//         })
+//         .catch(error => console.error('Error fetching data:', error));
+// }
+
+// // Update chart when dropdown selection changes
+// document.querySelectorAll('.dropdown-item').forEach(item => {
+//     item.addEventListener('click', function() {
+//         const month = this.textContent.trim();
+//         drawChart(month);
+//         document.querySelector('#dropdownMenuLink').innerHTML = `${month} <i class="fas fa-caret-down"></i>`;
+//     });
+// });
+
 
   // BEGIN LINE GRAPH
 
@@ -203,7 +212,6 @@ function drawCharts() {
   // draw pie chart
   var pieChart = new google.visualization.PieChart(document.getElementById('pie-chart'));
   pieChart.draw(pieData, pieOptions);
-}
 
 
 var data = [

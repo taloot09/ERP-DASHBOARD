@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sales Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        td {
+            font-size: 14px;
+        }
+        .summary-box {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .summary-box h3 {
+            margin: 0 0 10px;
+        }
+        .highlight {
+            color: green;
+            font-weight: bold;
+        }
+        .highlight-red {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Sales Report</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Invoice ID</th>
+                <th>Customer Name</th>
+                <th>Due Balance</th>
+                <th>Paid Amount</th>
+                <th>Product Name</th>
+                <th>Wholesales (Tons)</th>
+                <th>Normal Sales (Bags)</th>
+                <th>Date</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sale in sales_data %}
+            <tr>
+                <td>{{ sale.invoice_number }}</td>
+                <td>{{ sale.customer_name }}</td>
+                <td>{{ sale.due_balance }}</td>
+                <td>{{ sale.paid }}</td>
+                <td>{{ sale.product_name }}</td>
+                <td>
+                    {% if sale.unit == 'ton' %}
+                        {{ sale.quantity }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>
+                    {% if sale.unit == 'bag' %}
+                        {{ sale.quantity }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>{{ sale.date }}</td>
+                <td>{{ sale.quantity }}</td>
+                <td>{{ sale.total }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2"><strong>Totals:</strong></td>
+                <td><strong>{{ total_due_balance }}</strong></td>
+                <td><strong>{{ total_paid }}</strong></td>
+                <td></td>
+                <td><strong>{{ total_wholesales }}</strong></td>
+                <td><strong>{{ total_normal_sales }}</strong></td>
+                <td></td>
+                <td><strong>{{ total_quantity }}</strong></td>
+                <td><strong>{{ total_sales }}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="summary-box">
+        <h3>Summary</h3>
+        <p>Total Sales: <span class="highlight">{{ total_sales }}</span></p>
+        <p>Total Quantity: {{ total_quantity }}</p>
+        <p>Total Due Balance: <span class="highlight-red">{{ total_due_balance }}</span></p>
+        <p>Total Paid: {{ total_paid }}</p>
+        <p>Total Wholesales (Tons): {{ total_wholesales }}</p>
+        <p>Total Normal Sales (Bags): {{ total_normal_sales }}</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block main_content %}
+
+<div class="form-container">
+    <h2>Add Quotation</h2>
+    <form method="post" class="quotation-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name</label>
+            {{ form.name }}
+        </div>
+        <div class="form-group">
+            <label for="datetime">Datetime</label>
+            {{ form.datetime }}
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            {{ form.description }}
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+    <hr />
+    <h2>Quotations</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Datetime</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for quotation in quotations %}
+                <tr>
+                    <td>{{ quotation.name }}</td>
+                    <td>{{ quotation.datetime }}</td>
+                    <td>{{ quotation.description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+    .quotation-form .form-group {
+        margin-bottom: 20px;
+    }
+
+    .quotation-form label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .quotation-form input,
+    .quotation-form textarea,
+    .quotation-form select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .quotation-form textarea {
+        height: 100px;
+        resize: vertical;
+    }
+
+    .form-actions {
+        text-align: right;
+    }
+
+    .form-actions .btn {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .form-actions .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .table-container {
+        margin-top: 20px;
+    }
+
+    .table-container table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table-container th,
+    .table-container td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .table-container th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+{% endblock %}

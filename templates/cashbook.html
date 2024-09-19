@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block main_content %}
+
+
+
+<style>
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border: 2px solid #555555;
+        border-radius: 5px;
+    }
+
+    .right-box {
+        float: right;
+    }
+
+    .left-box,
+    .right-box {
+        flex: 1;
+        /* Distribute space equally between left and right boxes */
+    }
+
+    .left-box p,
+    .right-box p {
+        margin: 5px 0;
+    }
+
+
+    .invoice-info {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .invoice-title {
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+
+    .invoice-number {
+        font-weight: bold;
+    }
+
+    thead {
+        border-bottom: 2px solid #000;
+        border-top: 2px solid #000;
+    }
+
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        text-align: left;
+
+    }
+
+
+    .invoice-no,
+    .amount {
+        text-align: start;
+    }
+
+    /* Optional styling for specific content */
+    .invoice-no-value,
+    .date-value,
+    .amount-value {
+        font-weight: bold;
+    }
+
+    .footer {
+        text-align: right;
+        margin-top: 20px;
+    }
+</style>
+
+
+<script>
+    function applyFilter() {
+        const filter = document.getElementById('filterSelect').value;
+        window.location.href = `?filter=${filter}`;
+    }
+</script>
+
+
+
+<h1>Cashbook</h1>
+<div class="header">
+    <div class="left-box">
+        <p class="mx-3">As on: <span id="date">{{ today_date }}</span></p>
+        <div class="d-flex mx-3">
+            <p>Printed Date : {{ printed_date }}</p>
+            <p>Time : {{ printed_time }}</p>
+        </div>
+    </div>
+    <hr />
+    <div class="right-box">
+        <select id="filterSelect" class="paymenttypes" onchange="applyFilter()">
+            <option value="today" {% if filter_option == 'today' %}selected{% endif %}>Today</option>
+            <option value="month" {% if filter_option == 'month' %}selected{% endif %}>Monthly</option>
+            <option value="year" {% if filter_option == 'year' %}selected{% endif %}>Yearly</option>
+            <option value="all" {% if filter_option == 'all' %}selected{% endif %}>All</option>
+        </select>
+        <p>Page 1/1</p>
+    </div>
+</div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th class="invoice-no">Invoice.No</th>
+                <th>Date</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sale in cash_sales %}
+            <tr>
+                <td class="invoice-no"><span class="invoice-no-value">{{ sale.invoice_number }}</span></td>
+                <td><span class="date-value">{{ sale.date }}</span></td>
+                <td class="amount"><span class="amount-value">{{ sale.amount }}</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

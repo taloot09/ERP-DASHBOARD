@@ -1,29 +1,115 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'index' %}">Adil Traders</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+{% load static %}
 
-          {% if user.is_authenticated %}
-
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-          </li>
-
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Register</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'index' %}">Login</a>
-          </li>
-          
-          {% endif %}
-
-      </div>
+<!-- NAVBAR -->
+<div id="navbar" class="p-4 p-md-5 pt-5" style="overflow-x:visible; margin-bottom: 0; padding-bottom: 0;">
+    <div class="row">
+        <div class="col-lg-3">
+            <h3>Analytical</h3>
+            <p>Dashboard</p>
+        </div>
+        <div class="col-lg-5">
+            <div class="col-rt-3 equal-height">
+                <div class="sb-example-3">
+                    <div class="search__container">
+                        <form action="{% url 'search' %}" method="GET">
+                        <input class="search__input" type="text" name="q" placeholder="Search">
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4" style="display: flex; justify-content: end; margin: auto;">
+            <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top">
+                <ul class="navbar-nav ml-auto d-flex">
+                    <li class="nav-item dropdown no-arrow mx-2 mt-2">
+                        <a class="nav-link" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Sales
+                            <span
+                                class="position-absolute start-100 translate-middle badge rounded-pill bg-info text-light">
+                                +
+                            </span>
+                        </a>
+                    </li>
+                    <div class="topbar-divider d-none d-sm-block"></div>
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a class="nav-link" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img class="w-75 mt-1" src="{% static 'assets/notify.svg' %}" />
+                            <span
+                                class="position-absolute start-100 translate-middle badge rounded-pill bg-warning text-light"
+                                style="margin-left: -5px;">
+                                9
+                            </span>
+                        </a>
+                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            aria-labelledby="alertsDropdown">
+                            <h6 class="dropdown-header">Alerts Center</h6>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-primary">
+                                        <i class="fas fa-file-alt text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500">December 12, 2019</div>
+                                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                </div>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-success">
+                                        <i class="fas fa-donate text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500">December 7, 2019</div>
+                                    $290.29 has been deposited into your account!
+                                </div>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-warning">
+                                        <i class="fas fa-exclamation-triangle text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500">December 2, 2019</div>
+                                    Spending Alert: We've noticed unusually high spending for your account.
+                                </div>
+                            </a>
+                            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img class="img-profile rounded-circle" src="{% static 'assets/profile.png' %}">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profile
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Settings
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Activity Log
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'logout' %}">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
-  </nav>
+</div>
+<!-- NAVBAR END -->
