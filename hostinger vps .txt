@@ -1,0 +1,21 @@
+Hostinger VPS
+
+user: root
+SSH Password: /bftrb08iiK0riPi;F3v
+
+
+
+"Cloudpanel":
+username: admin
+vps panel password: D8z#VJJjyKVm8U:S7frS
+
+
+
+Hostinger login:
+bilal_5208@hotmail.com	
+Bilal@2580
+
+
+Database new user
+username: admin
+password: password

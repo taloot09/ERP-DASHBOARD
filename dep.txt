@@ -1,0 +1,103 @@
+Steps to Deploy Django Project on VPS:
+
+step 1. login to cloudpanel
+2. Add site:
+3. create a python site
+4. add domain name, site user, password, py version, app port: then Create.
+5. Add 'A' Records and 'AAAA' records for SSL certificate for site.
+6. Upload Project Files using FileZilla:
+		Open FileZilla and connect to your VPS using the following details:
+		Host: 194.195.86.45
+		Username: root
+		Password: (your SSH password)
+		Port: 22
+7. Navigate to the htdocs directory:
+		Right Pane: Go to /home/adiltraders/htdocs/www.adiltraders.store
+		Left Pane: Navigate to your local project folder (e.g., django-dashboard).
+		Drag and Drop: Select your entire django-dashboard folder and drag it to the right pane (inside www.adiltraders.store folder).
+		Optional: After the upload is complete, you can delete unnecessary folders such as db_pro and venv if you do not need them in the server.
+		
+8. Connect to VPS via SSH:
+
+user: root
+SSH Password: /bftrb08iiK0riPi;F3v
+
+
+		Open Command Prompt or PowerShell on your PC.
+		Run the following command:
+		(bash)ssh root@194.195.86.45
+			SSH Password: /bftrb08iiK0riPi;F3v
+		
+9. Navigate to the Site Directory:
+		(bash)cd /home/adiltraders/htdocs/www.adiltraders.store
+
+10.Check Current Directory:
+		(bash)ls
+
+11.Navigate to the Django Project Folder:
+		cd django-dashboard
+		ls
+		
+12. Create a Virtual Environment:
+		python3 -m venv venv
+		
+13. Activate the Virtual Environment:
+		source venv/bin/activate
+
+14. Install Dependencies: If you have a requirements.txt file, run:
+		pip install -r requirements.txt
+		
+15. Run Migrations:
+		python manage.py migrate
+		
+16. Collect Static Files:
+		python manage.py collectstatic
+
+17. Start the Django Development Server:
+		python manage.py runserver 0.0.0.0:8000
+
+Notes:
+Ensure that your server is properly configured to allow traffic on port 8000 (or any other port you choose).
+For a production environment, consider using a production server (like Gunicorn or uWSGI) and a web server (like Nginx or Apache).
+
+
+Check the Gunicorn service file: Open the gunicorn.service file, which is usually located in /etc/systemd/system/.
+
+		sudo nano /etc/systemd/system/gunicorn.service
+
+Check Gunicorn Logs
+		journalctl -u gunicorn
+		
+Check Nginx error logs 
+		sudo tail -f /var/log/nginx/error.log
+		
+Nginx configuration file:
+		sudo nano /etc/nginx/sites-available/www.adiltraders.store.conf
+		
+Test Gunicorn Directly
+		source /home/adiltraders/htdocs/www.adiltraders.store/django-dashboard/venv/bin/activate
+		
+Run Gunicorn manually (replace dash_pro.wsgi:application
+
+		Run Gunicorn manually (replace dash_pro.wsgi:application
+		
+Check Firewall Rules
+		sudo ufw status
+If you see that ports are blocked, you can allow HTTP and HTTPS traffic:
+		sudo ufw allow 'Nginx Full'
+		
+Restart Nginx
+		sudo systemctl restart nginx
+
+Test Application with manage.py
+		python manage.py runserver 0.0.0.0:8000
+
+
+
+
+
+
+
+ftp account - cloudpanel
+user name: django_project
+password: awfMer5KdBBFTKYBl6sS
